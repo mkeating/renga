@@ -5,7 +5,8 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 export default class Line extends Component {
 	render() {
 		return (
-			<div>{this.props.line.text} </div>	
+			<div>
+			{this.props.line.createdAt.toString()} </div>
 		);
 	}
 }

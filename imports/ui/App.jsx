@@ -80,6 +80,6 @@ export default createContainer(() => {
 	Meteor.subscribe('lines.recent');
 
 	return {
-		lines: Lines.find({}).fetch()
+		lines: Lines.find({}, {sort:{createdAt: 1}}).fetch()
 	};
 }, App);
