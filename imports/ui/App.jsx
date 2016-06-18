@@ -19,11 +19,21 @@ export default class App extends Component {
 		//find text field (by React 'ref' )
 		const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
 
+		let lastOne = this.props.lines[this.props.lines.length-1];
+		let secondToLast = this.props.lines[this.props.lines.length-2];
+
+		//check for haiku
+		if (syllable(text) == 5 && lastOne.syllables == 7 && secondToLast.syllables == 5){
+			console.log('haiku created');
+		}
+
 		Lines.insert({
 			text,
 			createdAt: new Date(),
 			syllables: syllable(text),
 		});
+
+
 
 		//clear the form
 		ReactDOM.findDOMNode(this.refs.textInput).value = '';
@@ -37,8 +47,6 @@ export default class App extends Component {
 	}
 
 	render() {
-
-
 
 		return (
 			<div className="container">
