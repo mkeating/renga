@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { createContainer } from 'meteor/react-meteor-data';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-import { Tasks } from '../api/tasks.js';
+import { Lines } from '../api/lines.js';
 
-import Task from './Task.jsx';
+import Line from './Line.jsx';
+
 
 //App Component
 export default class App extends Component {
@@ -15,7 +17,7 @@ export default class App extends Component {
 		//find text field (by React 'ref' )
 		const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
 
-		Tasks.insert({
+		Lines.insert({
 			text,
 			createdAt: new Date(),
 		});
@@ -24,20 +26,21 @@ export default class App extends Component {
 		ReactDOM.findDOMNode(this.refs.textInput).value = '';
 	}
 	
-	renderTasks() {
+	renderLines() {
 
-		return this.props.tasks.map((task) => (
-			<Task key={task._id} task={task} />
+		return this.props.lines.map((line) => (
+			<Line key={line._id} line={line} />
 		));
 	}
 
 	render() {
+
+
+
 		return (
 			<div className="container">
 				<header>
 					<h1>title</h1>
-
-				{/* Comments in JSX */}
 
 					<form className="new-task" onSubmit={this.handleSubmit.bind(this)}>
 						<input
@@ -48,16 +51,21 @@ export default class App extends Component {
 
 				</header>
 
-				<ul>
-					{this.renderTasks()}
-				</ul>
+				<ReactCSSTransitionGroup 
+					transitionName = "lineLoad"
+					transitionEnterTimeout = {600}
+					transitionLeaveTimeout = {600}  
+				>
+
+					{this.renderLines()}
+				</ReactCSSTransitionGroup>
 			</div>
 		);
 	}
 }
 
 App.propTypes = {
-	tasks: PropTypes.array.isRequired,
+	lines: PropTypes.array.isRequired,
 };
 
 
@@ -67,6 +75,6 @@ collection to App as a prop
 */
 export default createContainer(() => {
 	return {
-		tasks: Tasks.find().fetch(),
+		lines: Lines.find({}, {sort:{createdAt: -1}, limit: 5}).fetch(),
 	};
 }, App);
