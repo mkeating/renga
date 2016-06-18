@@ -40,7 +40,16 @@ export default class App extends Component {
 		return (
 			<div className="container">
 				<header>
-					<h1>title</h1>
+					<h1>Renga</h1>
+
+					<ReactCSSTransitionGroup 
+							transitionName = "lineLoad"
+							transitionEnterTimeout = {600}
+							transitionLeaveTimeout = {600} > 
+						
+							{this.renderLines()}
+					
+					</ReactCSSTransitionGroup>
 
 					<form className="new-task" onSubmit={this.handleSubmit.bind(this)}>
 						<input
@@ -51,14 +60,7 @@ export default class App extends Component {
 
 				</header>
 
-				<ReactCSSTransitionGroup 
-					transitionName = "lineLoad"
-					transitionEnterTimeout = {600}
-					transitionLeaveTimeout = {600}  
-				>
-
-					{this.renderLines()}
-				</ReactCSSTransitionGroup>
+				
 			</div>
 		);
 	}
@@ -74,7 +76,10 @@ wraps the App component in a Higher Order Component (container), and supplies th
 collection to App as a prop 
 */
 export default createContainer(() => {
+
+	Meteor.subscribe('lines.recent');
+
 	return {
-		lines: Lines.find({}, {sort:{createdAt: -1}, limit: 5}).fetch(),
+		lines: Lines.find({}).fetch()
 	};
 }, App);
