@@ -13,6 +13,7 @@ import syllable from 'syllable';
 //App Component
 export default class App extends Component {
 
+
 	handleSubmit(event) {
 		event.preventDefault();
 
@@ -22,15 +23,25 @@ export default class App extends Component {
 		let lastOne = this.props.lines[this.props.lines.length-1];
 		let secondToLast = this.props.lines[this.props.lines.length-2];
 
+		let words = text.split(' ');
+		//let words = ["one", "two", "excellent", "excellent"];
+		console.log(words);
+
+		let totalSyllables = 0;
+		words.forEach(n => totalSyllables += syllable(n));
+
+
+		console.log(totalSyllables);
+
 		//check for haiku
-		if (syllable(text) == 5 && lastOne.syllables == 7 && secondToLast.syllables == 5){
+		if (syllable(text) === 5 && lastOne.syllables === 7 && secondToLast.syllables === 5){
 			console.log('haiku created');
 		}
 
 		Lines.insert({
 			text,
 			createdAt: new Date(),
-			syllables: syllable(text),
+			syllables: totalSyllables,
 		});
 
 
@@ -45,6 +56,8 @@ export default class App extends Component {
 			<Line key={line._id} line={line} />
 		));
 	}
+
+
 
 	render() {
 
@@ -64,7 +77,7 @@ export default class App extends Component {
 						</ReactCSSTransitionGroup>
 					</div>
 
-					<form className="new-task" onSubmit={this.handleSubmit.bind(this)}>
+					<form className="new-line" onSubmit={this.handleSubmit.bind(this)}>
 						<input
 							type="text"
 							ref="textInput"
@@ -77,6 +90,8 @@ export default class App extends Component {
 			</div>
 		);
 	}
+
+	
 }
 
 App.propTypes = {
