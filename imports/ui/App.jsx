@@ -7,6 +7,8 @@ import { Lines } from '../api/lines.js';
 
 import Line from './Line.jsx';
 
+import syllable from 'syllable';
+
 
 //App Component
 export default class App extends Component {
@@ -20,6 +22,7 @@ export default class App extends Component {
 		Lines.insert({
 			text,
 			createdAt: new Date(),
+			syllables: syllable(text),
 		});
 
 		//clear the form

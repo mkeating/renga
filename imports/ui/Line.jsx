@@ -6,7 +6,10 @@ export default class Line extends Component {
 	render() {
 		return (
 			<div>
-			{this.props.line.createdAt.toString()} </div>
+				<div>{this.props.line.text} </div>
+				<div>{this.props.line.createdAt.toString()} </div>
+				<div>{this.props.line.syllables} </div>
+			</div>
 		);
 	}
 }
