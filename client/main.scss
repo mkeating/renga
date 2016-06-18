@@ -27,10 +27,17 @@
 	}
 }
 
+$border-color: #e62222;
+
 .container {
 	margin: 0 auto;
 	width: 70%;
 	border: 1px solid black;
-	height: 200px;
+	min-height: 200px;
 	text-align: center;
+}
+
+.scroll {
+	color: $border-color;
+	padding: 20px;
 }

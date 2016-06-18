@@ -45,14 +45,16 @@ export default class App extends Component {
 				<header>
 					<h1>Renga</h1>
 
-					<ReactCSSTransitionGroup 
-							transitionName = "lineLoad"
-							transitionEnterTimeout = {600}
-							transitionLeaveTimeout = {600} > 
+					<div className="scroll">
+						<ReactCSSTransitionGroup 
+								transitionName = "lineLoad"
+								transitionEnterTimeout = {600}
+								transitionLeaveTimeout = {600} > 
+							
+								{this.renderLines()}
 						
-							{this.renderLines()}
-					
-					</ReactCSSTransitionGroup>
+						</ReactCSSTransitionGroup>
+					</div>
 
 					<form className="new-task" onSubmit={this.handleSubmit.bind(this)}>
 						<input

@@ -7,8 +7,8 @@ export default class Line extends Component {
 		return (
 			<div>
 				<div>{this.props.line.text} </div>
-				<div>{this.props.line.createdAt.toString()} </div>
-				<div>{this.props.line.syllables} </div>
+				{/*<div>{this.props.line.createdAt.toString()} </div>
+				<div>{this.props.line.syllables} </div>*/}
 			</div>
 		);
 	}
