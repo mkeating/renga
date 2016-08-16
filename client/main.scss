@@ -1,10 +1,23 @@
 /* CSS declarations go here */
+
 .lineLoad-enter {
-   animation: fadeIn 1s;
+	opacity: 0;
+}
+
+.lineLoad-enter.lineLoad-enter-active {
+   opacity: 1;
+   transition: opacity 1s;
+   transition-delay: .5s;
+   
 }
 
 .lineLoad-leave {
-	animation: fadeOut 1s;
+	opacity: 1;
+}
+
+.lineLoad-leave.lineLoad-leave-active {
+	opacity: 0;
+	transition: opacity 1s;
 }
 
 @keyframes fadeIn {
@@ -38,6 +51,14 @@ $border-color: #e62222;
 }
 
 .scroll {
+
 	color: $border-color;
 	padding: 20px;
+	max-height: 150px;
+}
+
+
+.buffer {
+	min-height: 20px;
+	height: 20px;
 }

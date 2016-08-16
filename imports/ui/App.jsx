@@ -4,15 +4,21 @@ import { createContainer } from 'meteor/react-meteor-data';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import { Lines } from '../api/lines.js';
-
 import Line from './Line.jsx';
 
+import { Locked } from '../api/locked.js';
+
 import syllable from 'syllable';
+
+import FlipMove from 'react-flip-move';
 
 
 //App Component
 export default class App extends Component {
 
+	componentDidUpdate() {
+	    console.log('updated');
+	  }
 
 	handleSubmit(event) {
 		event.preventDefault();
@@ -23,9 +29,9 @@ export default class App extends Component {
 		let lastOne = this.props.lines[this.props.lines.length-1];
 		let secondToLast = this.props.lines[this.props.lines.length-2];
 
+		console.log(this.props.lines[this.props.lines.length-1]._id);
+
 		let words = text.split(' ');
-		//let words = ["one", "two", "excellent", "excellent"];
-		console.log(words);
 
 		let totalSyllables = 0;
 		words.forEach(n => totalSyllables += syllable(n));
@@ -44,8 +50,6 @@ export default class App extends Component {
 			syllables: totalSyllables,
 		});
 
-
-
 		//clear the form
 		ReactDOM.findDOMNode(this.refs.textInput).value = '';
 	}
@@ -57,8 +61,6 @@ export default class App extends Component {
 		));
 	}
 
-
-
 	render() {
 
 		return (
@@ -67,14 +69,10 @@ export default class App extends Component {
 					<h1>Renga</h1>
 
 					<div className="scroll">
-						<ReactCSSTransitionGroup 
-								transitionName = "lineLoad"
-								transitionEnterTimeout = {600}
-								transitionLeaveTimeout = {600} > 
-							
-								{this.renderLines()}
 						
-						</ReactCSSTransitionGroup>
+						<FlipMove easing = "cubic-bezier(0, 0.7, 0.8, 0.1)" enterAnimation="fade" >
+							{ this.renderLines() }
+						</FlipMove>
 					</div>
 
 					<form className="new-line" onSubmit={this.handleSubmit.bind(this)}>
@@ -85,8 +83,6 @@ export default class App extends Component {
 					</form>
 
 				</header>
-
-				
 			</div>
 		);
 	}
