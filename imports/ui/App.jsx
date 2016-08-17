@@ -18,6 +18,7 @@ export default class App extends Component {
 
 	componentDidUpdate() {
 	    console.log('updated');
+	    console.log(this.props.lines);
 	  }
 
 	handleSubmit(event) {
@@ -29,19 +30,27 @@ export default class App extends Component {
 		let lastOne = this.props.lines[this.props.lines.length-1];
 		let secondToLast = this.props.lines[this.props.lines.length-2];
 
-		console.log(this.props.lines[this.props.lines.length-1]._id);
+		//console.log(this.props.lines[this.props.lines.length-1]._id);
 
 		let words = text.split(' ');
 
 		let totalSyllables = 0;
 		words.forEach(n => totalSyllables += syllable(n));
 
+		let lastOneID = lastOne._id;
+		console.log(lastOneID);
 
-		console.log(totalSyllables);
+	
+		console.log('overall props from handle submit:' + JSON.stringify(this.props.lines));
+		console.log(this.refs);
 
 		//check for haiku
-		if (syllable(text) === 5 && lastOne.syllables === 7 && secondToLast.syllables === 5){
-			console.log('haiku created');
+		if (totalSyllables === 5 && lastOne.syllables === 7 && secondToLast.syllables === 5){
+			console.log('!!! haiku created !!!');
+
+			console.log(secondToLast._id);
+			console.log(lastOne._id);
+			console.log('current one to be inserted');
 		}
 
 		Lines.insert({
@@ -56,12 +65,17 @@ export default class App extends Component {
 	
 	renderLines() {
 
+
+		console.log(this.props.lines.refs);
+
 		return this.props.lines.map((line) => (
 			<Line key={line._id} line={line} />
 		));
 	}
 
 	render() {
+
+		
 
 		return (
 			<div className="container">
@@ -70,7 +84,7 @@ export default class App extends Component {
 
 					<div className="scroll">
 						
-						<FlipMove easing = "cubic-bezier(0, 0.7, 0.8, 0.1)" enterAnimation="fade" >
+						<FlipMove easing = "cubic-bezier(0, 0.7, 0.8, 0.1)" enterAnimation="fade"  leaveAnimation="fade">
 							{ this.renderLines() }
 						</FlipMove>
 					</div>

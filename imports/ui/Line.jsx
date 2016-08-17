@@ -1,15 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-// Task Component
+// Line Component
 export default class Line extends Component {
 	render() {
+
+		//console.log('ref from component: ' + typeof(this.props.line._id));
+
 		return (
-			<div>
-				<div>{this.props.line.text} </div>
-				{/*<div>{this.props.line.createdAt.toString()} </div>
-				<div>{this.props.line.syllables} </div>*/}
-			</div>
+				<div >{this.props.line.text}  {this.props.line._id}</div>
 		);
 	}
 }

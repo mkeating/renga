@@ -57,8 +57,18 @@ $border-color: #e62222;
 	max-height: 150px;
 }
 
+.scroll > div {
+	margin-bottom: 20px; 
+	margin-top: 20px;
+}
+
+
 
 .buffer {
 	min-height: 20px;
 	height: 20px;
+}
+
+.new-haiku {
+	color: green;
 }
